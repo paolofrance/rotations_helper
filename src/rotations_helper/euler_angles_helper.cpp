@@ -33,17 +33,17 @@ Eigen::Vector3d EulerAnglesHelper::getEulerAnglesBounded(const Eigen::Affine3d& 
   
   Eigen::Vector3d ret = getEulerAngles(matrix);
   
-  ROS_INFO_STREAM("angle: " <<ret(2)<<", previous:"<<previous_Z_angle_<<", delta" <<ret(2)-previous_Z_angle_);
+  ROS_DEBUG_STREAM("angle: " <<ret(2)<<", previous:"<<previous_Z_angle_<<", delta" <<ret(2)-previous_Z_angle_);
   
   if (ret(2)-previous_Z_angle_ > 0.1)
   {
     ret(2) -= M_PI ;
-    ROS_INFO_STREAM(green<<"bounding z: "<<ret(2));
+    ROS_INFO_STREAM_THROTTLE(1.0,green<<"bounding z: "<<ret(2));
   }
   else if (ret(2)-previous_Z_angle_ < -0.1)
   {      
     ret(2) += M_PI;
-    ROS_INFO_STREAM(yellow<<"bounding z: "<<ret(2));
+    ROS_INFO_STREAM_THROTTLE(1.0,yellow<<"bounding z: "<<ret(2));
 
   }
   previous_Z_angle_ = ret(2);
